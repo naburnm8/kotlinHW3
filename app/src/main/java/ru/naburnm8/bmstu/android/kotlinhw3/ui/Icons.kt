@@ -250,3 +250,111 @@ public val Ghost: ImageVector
     }
 
 private var _Ghost: ImageVector? = null
+
+public val Bookmark: ImageVector
+    get() {
+        if (_Bookmark != null) {
+            return _Bookmark!!
+        }
+        _Bookmark = ImageVector.Builder(
+            name = "Bookmark",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(200f, 840f)
+                verticalLineToRelative(-640f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(280f, 120f)
+                horizontalLineToRelative(400f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(760f, 200f)
+                verticalLineToRelative(640f)
+                lineTo(480f, 720f)
+                close()
+                moveToRelative(80f, -122f)
+                lineToRelative(200f, -86f)
+                lineToRelative(200f, 86f)
+                verticalLineToRelative(-518f)
+                horizontalLineTo(280f)
+                close()
+                moveToRelative(0f, -518f)
+                horizontalLineToRelative(400f)
+                close()
+            }
+        }.build()
+        return _Bookmark!!
+    }
+
+private var _Bookmark: ImageVector? = null
+
+
+public val Bookmark_check: ImageVector
+    get() {
+        if (_Bookmark_check != null) {
+            return _Bookmark_check!!
+        }
+        _Bookmark_check = ImageVector.Builder(
+            name = "Bookmark_check",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(438f, 560f)
+                lineToRelative(198f, -198f)
+                lineToRelative(-57f, -56f)
+                lineToRelative(-141f, 141f)
+                lineToRelative(-57f, -57f)
+                lineToRelative(-57f, 57f)
+                close()
+                moveTo(200f, 840f)
+                verticalLineToRelative(-640f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(280f, 120f)
+                horizontalLineToRelative(400f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(760f, 200f)
+                verticalLineToRelative(640f)
+                lineTo(480f, 720f)
+                close()
+                moveToRelative(80f, -122f)
+                lineToRelative(200f, -86f)
+                lineToRelative(200f, 86f)
+                verticalLineToRelative(-518f)
+                horizontalLineTo(280f)
+                close()
+                moveToRelative(0f, -518f)
+                horizontalLineToRelative(400f)
+                close()
+            }
+        }.build()
+        return _Bookmark_check!!
+    }
+
+private var _Bookmark_check: ImageVector? = null
+
+

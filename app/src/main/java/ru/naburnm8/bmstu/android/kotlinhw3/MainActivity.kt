@@ -10,13 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import ru.naburnm8.bmstu.android.kotlinhw3.ui.MovieItem
 import ru.naburnm8.bmstu.android.kotlinhw3.ui.theme.KotlinHW3Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
+            MovieItem()
         }
     }
 }

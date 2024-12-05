@@ -5,7 +5,8 @@ data class MovieShort(
     val title: String,
     val year: Int,
     val rating: Double,
-    val imgUrl: String
+    val imgUrl: String,
+    val isBookmarked: Boolean = false
 )
 
 public val defaultMovieShort = MovieShort(
