@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">KotlinHW3</string>
+    <string name="home">Home</string>
+    <string name="favourites">Favourites</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+</resources>
