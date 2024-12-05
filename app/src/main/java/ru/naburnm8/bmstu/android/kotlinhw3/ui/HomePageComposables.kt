@@ -1,6 +1,7 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -21,6 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import ru.naburnm8.bmstu.android.kotlinhw3.R
 import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieShort
 import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieShort
@@ -36,20 +40,24 @@ fun MovieItem(
     data: MovieShort = defaultMovieShort
 ){
     Card(
-        modifier = modifier.width(160.dp).height(240.dp),
+        modifier = modifier.width(160.dp).height(240.dp).shadow(elevation = 4.dp, clip = true, shape = RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ){
         Box {
+
             AsyncImage(
-                model = data.imgUrl,
+                model = ImageRequest.Builder(context).data(data.imgUrl).crossfade(true).build(),
                 contentDescription = data.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize(),
-                placeholder = painterResource(R.drawable.ic_launcher_background)
+                placeholder = painterResource(R.drawable.example_image)
             )
+
             Box(
-                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp).size(36.dp).clip(RoundedCornerShape(12.dp))
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp)
+                    .shadow(elevation = 16.dp, clip = false, shape = RoundedCornerShape(12.dp))
+                    .size(36.dp)
                     .background(when{
                     (data.rating < 5.0) -> colorResource(R.color.red)
                     (data.rating in 5.0..8.0) -> colorResource(R.color.orange)
@@ -59,7 +67,7 @@ fun MovieItem(
             ) {
                 Text(
                     text = data.rating.toString(),
-                    color = tint,
+                    color = colorResource(R.color.white),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.align(Alignment.Center)
                 )
