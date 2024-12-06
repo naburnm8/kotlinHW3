@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import ru.naburnm8.bmstu.android.kotlinhw3.ui.HomeScreen
-import ru.naburnm8.bmstu.android.kotlinhw3.ui.LowerScreen
+import ru.naburnm8.bmstu.android.kotlinhw3.ui.*
 
 
 class MainActivity : ComponentActivity() {
@@ -24,11 +24,25 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MainActivityScreen() {
+    var currentScreen by rememberSaveable { mutableIntStateOf(1) }
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        HomeScreen(modifier = Modifier.weight(1f))
-        LowerScreen()
+        when (currentScreen) {
+            1 -> {
+                HomeScreen(modifier = Modifier.weight(1f))
+            }
+            2 -> {
+                FavouritesScreen(modifier = Modifier.weight(1f))
+            }
+            3 -> {
+                SearchScreen(modifier = Modifier.weight(1f))
+            }
+            4 -> {
+                ProfileScreen(modifier = Modifier.weight(1f))
+            }
+        }
+        LowerScreen(setCurrentScreen = {currentScreen = it})
     }
 }
 
