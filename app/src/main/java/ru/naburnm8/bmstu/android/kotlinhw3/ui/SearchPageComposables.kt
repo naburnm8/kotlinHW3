@@ -14,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -52,7 +53,7 @@ fun SearchBar(
         trailingIcon = {
             Icon(
                 imageVector = Icons.Filled.Search,
-                contentDescription = "Search Icon",
+                contentDescription = context.getString(R.string.search),
                 tint = Color.Gray
             )
         },
@@ -66,7 +67,7 @@ fun SearchBar(
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(16.dp).shadow(elevation = 8.dp, shape = RoundedCornerShape(8.dp))
             .background(Color(0xFFF5F5F5), RoundedCornerShape(8.dp))
     )
 }
