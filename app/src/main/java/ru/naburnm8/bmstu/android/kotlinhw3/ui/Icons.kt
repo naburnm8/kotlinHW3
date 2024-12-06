@@ -358,3 +358,65 @@ public val Bookmark_check: ImageVector
 private var _Bookmark_check: ImageVector? = null
 
 
+public val Bookmarks: ImageVector
+    get() {
+        if (_Bookmarks != null) {
+            return _Bookmarks!!
+        }
+        _Bookmarks = ImageVector.Builder(
+            name = "Bookmarks",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(120f, 920f)
+                verticalLineToRelative(-640f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(200f, 200f)
+                horizontalLineToRelative(400f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(680f, 280f)
+                verticalLineToRelative(640f)
+                lineTo(400f, 800f)
+                close()
+                moveToRelative(80f, -122f)
+                lineToRelative(200f, -86f)
+                lineToRelative(200f, 86f)
+                verticalLineToRelative(-518f)
+                horizontalLineTo(200f)
+                close()
+                moveToRelative(560f, 2f)
+                verticalLineToRelative(-680f)
+                horizontalLineTo(240f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(520f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(840f, 120f)
+                verticalLineToRelative(680f)
+                close()
+                moveTo(200f, 280f)
+                horizontalLineToRelative(400f)
+                close()
+            }
+        }.build()
+        return _Bookmarks!!
+    }
+
+private var _Bookmarks: ImageVector? = null
+
+
+
+
+

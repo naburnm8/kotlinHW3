@@ -24,9 +24,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -34,6 +36,7 @@ import okhttp3.internal.wait
 import ru.naburnm8.bmstu.android.kotlinhw3.R
 import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieShort
 import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieShort
+import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieShortList
 
 @Preview(showBackground = true)
 @Composable
@@ -61,7 +64,6 @@ fun MovieItem(
                 contentDescription = data.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize().clickable{launchFullMovieScreen(data.id)},
-                placeholder = painterResource(R.drawable.example_image),
             )
 
             Box(
@@ -127,5 +129,53 @@ fun MovieItem(
             }
         }
     }
+    }
+}
+
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    context: Context = LocalContext.current,
+    launchFullMovieScreen: (Int) -> Unit = {},
+    onBookmarkPress: (Int) -> Unit = {},
+    onRefreshPress: () -> Unit = {},
+    backgroundColor: Color = colorResource(R.color.background),
+    tint: Color = colorResource(R.color.black),
+    dataList: List<MovieShort> = defaultMovieShortList,
+    isLoading: Boolean = false,
+    isFailed: Boolean = false,
+){
+    Column(
+        modifier = modifier.fillMaxSize().background(backgroundColor),
+    ) {
+        Row (
+            modifier = Modifier.fillMaxWidth().padding(8.dp),
+        ) {
+            Image(
+                painter = painterResource(R.drawable.pump),
+                contentDescription = context.getString(R.string.popular),
+                modifier = Modifier.align(Alignment.CenterVertically).padding(8.dp).height(32.dp).width(32.dp)
+            )
+            Text(
+                text = context.getString(R.string.popular),
+                modifier = Modifier.align(Alignment.CenterVertically).padding(8.dp),
+                style = MaterialTheme.typography.labelLarge,
+                fontSize = 24.sp,
+            )
+        }
+        when {
+            (isLoading) -> {
+                Loading()
+            }
+            (isFailed) -> {
+                Error(onRefresh = onRefreshPress)
+            }
+            else -> {
+
+            }
+        }
+
     }
 }

@@ -3,11 +3,14 @@ package ru.naburnm8.bmstu.android.kotlinhw3.ui
 import android.content.Context
 import android.provider.ContactsContract.Profile
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -42,21 +45,22 @@ fun BaseButton(
 )
 {
     Column(
-        modifier = modifier.padding(4.dp).wrapContentSize(Alignment.Center)
+        modifier = modifier.padding(4.dp)
             .shadow(
-                elevation = if (isSelected) 2.dp else 2.dp, clip = false,
+                elevation = if (isSelected) 20.dp else 10.dp, clip = false,
                 shape = RoundedCornerShape(10.dp), spotColor = if (isSelected) selectedTint else tint,
                 ambientColor = if (isSelected) selectedTint else tint
-            ).padding(4.dp).background(backgroundColor),
+            ).background(backgroundColor).height(64.dp).width(72.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        IconButton(onClick = {onClick()}, modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally).wrapContentHeight(
-            Alignment.CenterVertically)) {
+        IconButton(onClick = {onClick()}, modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally).wrapContentHeight(Alignment.CenterVertically)
+        ) {
             Icon(
                 imageVector = imageVector,
-                contentDescription = "",
-                tint = if (isSelected) selectedTint else tint
+                contentDescription = contentDescription,
+                tint = if (isSelected) selectedTint else tint,
+                modifier = Modifier.fillMaxSize()
             )
         }
         Text(text=contentDescription, textAlign = TextAlign.Center, color = if (isSelected) selectedTint else tint)
@@ -87,7 +91,7 @@ fun LowerScreen(
             isSelected = buttonClicked == 1,
         )
         BaseButton(
-            imageVector = Favorite,
+            imageVector = Bookmarks,
             onClick = {
                 buttonClicked = 2
                 setCurrentScreen(2)
@@ -119,5 +123,29 @@ fun LowerScreen(
             selectedTint = selectedTint,
             isSelected = buttonClicked == 4,
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Loading(
+    modifier: Modifier = Modifier,
+){
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Error(
+    modifier: Modifier = Modifier,
+    onRefresh: () -> Unit = {},
+    context: Context = LocalContext.current,
+){
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        IconButton(onClick = {onRefresh()}){
+            Icon(imageVector = Icons.Default.Refresh, contentDescription = context.getString(R.string.errorOccurred), modifier = Modifier.fillMaxSize())
+        }
     }
 }
