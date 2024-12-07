@@ -8,4 +8,9 @@
     <string name="popular">Popular</string>
     <string name="errorOccurred">An error has occurred</string>
     <string name="avatarImage">Avatar image</string>
+    <string name="subActive">Your subscription is active.</string>
+    <string name="perMonth">monthly.</string>
+    <string name="subRenew">Subscription will automatically renew at </string>
+    <string name="choosePlan">Choose your plan</string>
+    <string name="subInactive">No subscription active</string>
 </resources>
