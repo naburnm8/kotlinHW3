@@ -1,5 +1,8 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.network
 
+import java.time.LocalDate
+import java.util.Date
+
 data class MovieShort(
     val id: Int,
     val title: String,
@@ -38,4 +41,34 @@ data class MovieFull(
     val bigImgUrl: String,
     val tags: List<Tag>,
 )
+
+data class SubscriptionLevel(
+    val id: Int,
+    val price: Int,
+    val title: String,
+)
+
+data class Subscription(
+    val id: Int,
+    val isValid: Boolean,
+    val validUntil: LocalDate,
+    val subscriptionLevel: SubscriptionLevel,
+
+)
+
+data class User(
+    val id: Int,
+    val username: String,
+    val firstName: String,
+    val lastName: String,
+    val phoneNumber: String,
+    val email: String,
+    val subscription: Subscription,
+    val avatarImgUrl: String
+)
+public val defaultSubLevel = SubscriptionLevel(id = 1, price = 500, title = "Movies Plus")
+
+public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil = LocalDate.parse("2024-12-30"), subscriptionLevel = defaultSubLevel)
+
+public val defaultUser = User(id = 1, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
 

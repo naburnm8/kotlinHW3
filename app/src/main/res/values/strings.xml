@@ -7,4 +7,5 @@
     <string name="toFavourites">Add to favourites</string>
     <string name="popular">Popular</string>
     <string name="errorOccurred">An error has occurred</string>
+    <string name="avatarImage">Avatar image</string>
 </resources>

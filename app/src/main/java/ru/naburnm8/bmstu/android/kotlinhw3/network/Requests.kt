@@ -1,6 +1,6 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.network
 
-import androidx.compose.ui.unit.lerp
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -37,7 +37,7 @@ val moviesList = listOf(
 
 
 
-suspend fun getPopularMovies(
+fun getPopularMovies(
     setLoading: (Boolean) -> Unit,
     setError: (String, Boolean) -> Unit,
     coroutineScope: CoroutineScope,
@@ -59,7 +59,7 @@ suspend fun getPopularMovies(
     }
 }
 
-suspend fun getFavourites(
+fun getFavourites(
     setLoading: (Boolean) -> Unit,
     setError: (String, Boolean) -> Unit,
     coroutineScope: CoroutineScope,
@@ -81,7 +81,7 @@ suspend fun getFavourites(
     }
 }
 
-suspend fun getMovie(
+fun getMovie(
     id: Int,
     setLoading: (Boolean) -> Unit,
     setError: (String, Boolean) -> Unit,
@@ -104,7 +104,7 @@ suspend fun getMovie(
     }
 }
 
-suspend fun getMoviesByQuery(
+fun getMoviesByQuery(
     query: String,
     setLoading: (Boolean) -> Unit,
     setError: (String, Boolean) -> Unit,
