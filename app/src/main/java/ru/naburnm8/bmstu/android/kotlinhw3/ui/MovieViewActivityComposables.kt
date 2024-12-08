@@ -2,7 +2,6 @@ package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -26,10 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import ru.naburnm8.bmstu.android.kotlinhw3.R
-import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieFull
-import ru.naburnm8.bmstu.android.kotlinhw3.network.User
-import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieFull
-import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultUser
+import ru.naburnm8.bmstu.android.kotlinhw3.network.*
 
 
 @Preview(showBackground = true)
@@ -45,7 +41,7 @@ fun MovieView(
     isLoading: Boolean = false,
     isFailed: Boolean = false,
     data: MovieFull = defaultMovieFull,
-    userData: User = defaultUser,
+    userHasSubscription: Boolean = true
 ){
     var isBookmarked by rememberSaveable { mutableStateOf(data.movieShort.isBookmarked) }
     when{
@@ -118,13 +114,13 @@ fun MovieView(
                     }
                     Button(
                         onClick = {onWatchPress()},
-                        colors = if (data.isWatchable && userData.subscription.isValid) ButtonDefaults.buttonColors(containerColor = colorResource(R.color.green)) else ButtonDefaults.buttonColors(containerColor = colorResource(R.color.gray)),
+                        colors = if (data.isWatchable && userHasSubscription) ButtonDefaults.buttonColors(containerColor = colorResource(R.color.green)) else ButtonDefaults.buttonColors(containerColor = colorResource(R.color.gray)),
                         modifier = Modifier.padding(8.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(4.dp, 2.dp),
                     ){
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             when {
-                                (data.isWatchable && userData.subscription.isValid) -> {
+                                (data.isWatchable && userHasSubscription) -> {
                                     Text(
                                         text = context.getString(R.string.watchNow)
                                     )
@@ -134,7 +130,7 @@ fun MovieView(
                                     )
                                 }
 
-                                (data.isWatchable && !userData.subscription.isValid) -> {
+                                (data.isWatchable && !userHasSubscription) -> {
                                     Text(
                                         text = context.getString(R.string.choosePlan)
                                     )

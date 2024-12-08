@@ -20,15 +20,16 @@ import ru.naburnm8.bmstu.android.kotlinhw3.ui.*
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val currentUserId = 0
         setContent {
-            MainActivityScreen()
+            MainActivityScreen(currentUserId = currentUserId)
         }
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainActivityScreen(context: Context = LocalContext.current) {
+fun MainActivityScreen(context: Context = LocalContext.current, currentUserId: Int = -1) {
     var currentScreen by rememberSaveable {mutableIntStateOf(1)}
     val coroutineScope = rememberCoroutineScope()
 
@@ -73,7 +74,7 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
     var profileError by rememberSaveable {mutableStateOf(false)}
     var profileLoading by rememberSaveable {mutableStateOf(false)}
     if (profileData == null) {
-        getUser(0,
+        getUser(currentUserId,
             setLoading = {profileLoading = it},
             setError = {_, status -> run { profileError = status}},
             coroutineScope = coroutineScope,
@@ -91,7 +92,7 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
                     isFailed = homeError,
                     dataList = homeData ?: emptyList(),
                     onRefreshPress = {homeData = null},
-                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                    launchFullMovieScreen = {startMovieView(it, context = context, userHasSub = profileData!!.subscription.isValid)}
                 )
             }
             2 -> {
@@ -101,7 +102,7 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
                     isFailed = favouritesError,
                     onRefreshPress = {favouritesData = null},
                     dataList = favouritesData ?: emptyList(),
-                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                    launchFullMovieScreen = {startMovieView(it, context = context, userHasSub = profileData!!.subscription.isValid)}
                 )
             }
             3 -> {
@@ -112,7 +113,7 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
                     dataList = searchData ?: emptyList(),
                     onRefreshPress = {searchData = null},
                     onSearchPress = {searchQuery = it; searchData = null},
-                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                    launchFullMovieScreen = {startMovieView(it, context = context, userHasSub = profileData!!.subscription.isValid)}
                 )
             }
             4 -> {
@@ -128,9 +129,10 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
     }
 }
 
-fun startMovieView(id: Int, context: Context){
+fun startMovieView(id: Int, context: Context, userHasSub: Boolean) {
     val intent = Intent(context, MovieViewActivity::class.java)
     intent.putExtra("movie_id",id)
+    intent.putExtra("user_has_subscription", userHasSub)
     context.startActivity(intent)
 }
 

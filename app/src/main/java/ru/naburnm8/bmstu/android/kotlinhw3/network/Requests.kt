@@ -103,6 +103,8 @@ fun getMovie(
             setData(response)
         } catch (e: Exception){
             setError(e.message ?: "", true)
+            println(e.message)
+            setData(emptyMovieFull)
         }
         finally {
             setLoading(false)

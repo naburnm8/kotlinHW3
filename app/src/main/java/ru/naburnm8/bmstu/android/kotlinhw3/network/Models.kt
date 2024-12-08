@@ -80,3 +80,4 @@ public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil
 public val defaultUser = User(id = 0, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
 public val emptyUser = User(id = -1, username = "", firstName = "", lastName = "", phoneNumber = "", email= "", subscription = defaultSubscription, avatarImgUrl = "")
 public val defaultMovieFull = MovieFull(id = 1, movieShort = defaultMovieShort, desc = mockupDescription, isWatchable = true, bigImgUrl = "https://variety.com/wp-content/uploads/2018/11/astral.jpg?w=1000&h=500&crop=1", tags = tagsList)
+public val emptyMovieFull = MovieFull(id = -1, movieShort = defaultMovieShort, desc = "", isWatchable = false, bigImgUrl = "", tags = emptyList())
