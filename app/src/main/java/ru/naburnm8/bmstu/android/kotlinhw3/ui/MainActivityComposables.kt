@@ -23,9 +23,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,12 +39,13 @@ import ru.naburnm8.bmstu.android.kotlinhw3.R
 fun BaseButton(
     modifier: Modifier = Modifier,
     imageVector: ImageVector = Ghost,
+    painter: Painter = painterResource(id = R.drawable.bookmarks),
     contentDescription: String = "Account",
     isSelected: Boolean = false,
     tint: Color = colorResource(R.color.black),
     selectedTint: Color = colorResource(R.color.orange),
     backgroundColor: Color = colorResource(R.color.white),
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 )
 {
     Column(
@@ -57,7 +61,7 @@ fun BaseButton(
         IconButton(onClick = {onClick()}, modifier = Modifier.wrapContentWidth(Alignment.CenterHorizontally).wrapContentHeight(Alignment.CenterVertically)
         ) {
             Icon(
-                imageVector = imageVector,
+                painter = painter,
                 contentDescription = contentDescription,
                 tint = if (isSelected) selectedTint else tint,
                 modifier = Modifier.fillMaxSize()
@@ -80,7 +84,7 @@ fun LowerScreen(
     Row(modifier = modifier.fillMaxWidth().background(backgroundColor), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
         var buttonClicked by rememberSaveable { mutableIntStateOf(1) }
         BaseButton(
-            imageVector = Home,
+            painter = painterResource(id = R.drawable.home),
             onClick = {
                 buttonClicked = 1
                 setCurrentScreen(1)
@@ -91,7 +95,7 @@ fun LowerScreen(
             isSelected = buttonClicked == 1,
         )
         BaseButton(
-            imageVector = Bookmarks,
+            painter = painterResource(id = R.drawable.bookmarks),
             onClick = {
                 buttonClicked = 2
                 setCurrentScreen(2)
@@ -102,7 +106,7 @@ fun LowerScreen(
             isSelected = buttonClicked == 2,
         )
         BaseButton(
-            imageVector = Search,
+            painter = painterResource(id = R.drawable.search),
             onClick = {
                 buttonClicked = 3
                 setCurrentScreen(3)
@@ -113,7 +117,7 @@ fun LowerScreen(
             isSelected = buttonClicked == 3,
         )
         BaseButton(
-            imageVector = Ghost,
+            painter = painterResource(R.drawable.skull),
             onClick = {
                 buttonClicked = 4
                 setCurrentScreen(4)

@@ -48,7 +48,7 @@ fun MainActivityScreen() {
     if (favouritesData == null) {
         getFavourites(
             setLoading = {favouritesLoading = it},
-            setError = {_, status -> run { favouritesLoading = status} },
+            setError = {_, status -> run { favouritesError = status} },
             setData = {favouritesData = it},
             coroutineScope = coroutineScope,
         )

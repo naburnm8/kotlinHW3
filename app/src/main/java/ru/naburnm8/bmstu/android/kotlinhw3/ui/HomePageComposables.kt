@@ -80,7 +80,7 @@ fun MovieItem(
                     isBookmarked = !isBookmarked
                 }){
                     Icon(
-                        imageVector = if (isBookmarked) Bookmark_check else Bookmark,
+                        painter = if (isBookmarked) painterResource(R.drawable.bookmarkcheck) else painterResource(R.drawable.bookmark),
                         contentDescription = context.getString(R.string.toFavourites),
                         tint = Color.White
                     )
