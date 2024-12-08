@@ -1,7 +1,6 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.network
 
 import java.time.LocalDate
-import java.util.Date
 
 data class MovieShort(
     val id: Int,

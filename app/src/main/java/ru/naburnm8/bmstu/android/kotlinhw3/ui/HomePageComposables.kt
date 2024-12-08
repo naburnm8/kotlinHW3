@@ -176,6 +176,7 @@ fun HomeScreen(
                 Error(onRefresh = onRefreshPress)
             }
             else -> {
+
                 LazyVerticalGrid(modifier = Modifier.fillMaxSize(), columns = GridCells.Fixed(2), contentPadding = PaddingValues(8.dp)) {
                     items(dataList){
                         data -> MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))

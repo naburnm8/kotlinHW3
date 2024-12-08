@@ -52,6 +52,7 @@ fun getPopularMovies(
             setData(response)
         } catch (e: Exception){
             setError(e.message ?: "", true)
+            setData(emptyList())
         }
         finally {
             setLoading(false)
@@ -74,6 +75,7 @@ fun getFavourites(
             setData(response)
         } catch (e: Exception){
             setError(e.message ?: "", true)
+            setData(emptyList())
         }
         finally {
             setLoading(false)
@@ -120,6 +122,7 @@ fun getMoviesByQuery(
             setData(response)
         } catch (e: Exception){
             setError(e.message ?: "", true)
+            setData(emptyList())
         }
         finally {
             setLoading(false)
