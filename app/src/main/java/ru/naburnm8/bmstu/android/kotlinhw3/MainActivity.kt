@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieShort
+import ru.naburnm8.bmstu.android.kotlinhw3.network.getFavourites
 import ru.naburnm8.bmstu.android.kotlinhw3.network.getPopularMovies
 import ru.naburnm8.bmstu.android.kotlinhw3.ui.*
 
@@ -36,10 +37,21 @@ fun MainActivityScreen() {
     if (homeData == null) {
         getPopularMovies(
             setLoading = {homeLoading = it},
-            setError = {msg, status -> run { homeError = status
-                                            Toast.makeText(LocalContext.current, "Error: $msg", Toast.LENGTH_LONG).show()} },
+            setError = {_, status -> run { homeError = status }},
             coroutineScope = coroutineScope,
             setData = {homeData = it})
+    }
+
+    var favouritesData by rememberSaveable {mutableStateOf<List<MovieShort>?>(null)}
+    var favouritesError by rememberSaveable {mutableStateOf(false)}
+    var favouritesLoading by rememberSaveable {mutableStateOf(false)}
+    if (favouritesData == null) {
+        getFavourites(
+            setLoading = {favouritesLoading = it},
+            setError = {_, status -> run { favouritesLoading = status} },
+            setData = {favouritesData = it},
+            coroutineScope = coroutineScope,
+        )
     }
 
     Column(
@@ -47,10 +59,10 @@ fun MainActivityScreen() {
     ) {
         when (currentScreen) {
             1 -> {
-                HomeScreen(modifier = Modifier.weight(1f), isLoading = homeLoading, isFailed = homeError, dataList = homeData ?: emptyList())
+                HomeScreen(modifier = Modifier.weight(1f), isLoading = homeLoading, isFailed = homeError, dataList = homeData ?: emptyList(), onRefreshPress = {homeData = null})
             }
             2 -> {
-                FavouritesScreen(modifier = Modifier.weight(1f))
+                FavouritesScreen(modifier = Modifier.weight(1f), isLoading = favouritesLoading, isFailed = favouritesError, onRefreshPress = {favouritesData = null}, dataList = favouritesData ?: emptyList())
             }
             3 -> {
                 SearchScreen(modifier = Modifier.weight(1f))

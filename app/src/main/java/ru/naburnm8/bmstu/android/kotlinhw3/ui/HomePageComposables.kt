@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -136,6 +137,7 @@ fun MovieItem(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeScreen(
@@ -176,10 +178,18 @@ fun HomeScreen(
                 Error(onRefresh = onRefreshPress)
             }
             else -> {
-
-                LazyVerticalGrid(modifier = Modifier.fillMaxSize(), columns = GridCells.Fixed(2), contentPadding = PaddingValues(8.dp)) {
-                    items(dataList){
-                        data -> MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))
+                PullToRefreshBox(
+                    isRefreshing = isLoading,
+                    onRefresh = onRefreshPress,
+                ) {
+                    LazyVerticalGrid(
+                        modifier = Modifier.fillMaxSize(),
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(8.dp)
+                    ) {
+                        items(dataList) { data ->
+                            MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))
+                        }
                     }
                 }
             }

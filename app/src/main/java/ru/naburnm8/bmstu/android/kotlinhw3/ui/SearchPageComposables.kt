@@ -59,11 +59,14 @@ fun SearchBar(
         },
         singleLine = true,
         shape = RoundedCornerShape(8.dp),
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color(0xFFF5F5F5),
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
+        //colors = TextFieldDefaults.textFieldColors(
+            //containerColor = Color(0xFFF5F5F5),
+            //focusedIndicatorColor = Color.Transparent,
+            //unfocusedIndicatorColor = Color.Transparent,
+            //disabledIndicatorColor = Color.Transparent
+        //),
+        colors = TextFieldDefaults.colors(
+
         ),
         modifier = modifier
             .fillMaxWidth()
