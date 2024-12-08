@@ -15,6 +15,7 @@ import ru.naburnm8.bmstu.android.kotlinhw3.ui.theme.KotlinHW3Theme
 class MovieViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val movieId = intent.getIntExtra("movieId", -1)
         setContent {
 
         }

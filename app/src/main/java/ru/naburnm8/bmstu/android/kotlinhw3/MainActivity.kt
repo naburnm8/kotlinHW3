@@ -131,7 +131,6 @@ fun MainActivityScreen(context: Context = LocalContext.current) {
 fun startMovieView(id: Int, context: Context){
     val intent = Intent(context, MovieViewActivity::class.java)
     intent.putExtra("movie_id",id)
-    println("Hi i was called")
     context.startActivity(intent)
 }
 
