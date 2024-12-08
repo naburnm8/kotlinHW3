@@ -34,6 +34,10 @@ val moviesList = listOf(
     MovieFull(id = 6, movieShort = popularMoviesList[5], desc = mockupDescription, isWatchable = true, bigImgUrl = "https://a.ltrbxd.com/resized/sm/upload/5x/qd/4c/p8/87B6987C-2286-411B-97D4-84FF9520BD91-1200-1200-675-675-crop-000000.jpg?v=3dc1f473e4", tags = tagsList),
 )
 
+val usersList = listOf(
+    User(id = 1, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "my_email@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://sun9-75.userapi.com/impg/_EUfPlKTG7rV6H0VbspwSLQEEviPxoBRzteRog/mtHlhs20Wrw.jpg?size=278x278&quality=95&sign=4a55f53e7b7f86d1b521613771add952&type=album")
+)
+
 
 
 
@@ -123,6 +127,30 @@ fun getMoviesByQuery(
         } catch (e: Exception){
             setError(e.message ?: "", true)
             setData(emptyList())
+        }
+        finally {
+            setLoading(false)
+        }
+    }
+}
+
+fun getUser(
+    id: Int,
+    setLoading: (Boolean) -> Unit,
+    setError: (String, Boolean) -> Unit,
+    coroutineScope: CoroutineScope,
+    setData: (User) -> Unit
+) {
+    setLoading(true)
+    setError("", false)
+    coroutineScope.launch {
+        try{
+            val response = usersList[id]
+            delay(500L)
+            setData(response)
+        } catch (e: Exception){
+            setError(e.message ?: "", true)
+            setData(emptyUser)
         }
         finally {
             setLoading(false)

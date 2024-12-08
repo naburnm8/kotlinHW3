@@ -41,7 +41,7 @@ fun ProfileScreen(
     tint: Color = colorResource(R.color.black),
     isLoading: Boolean = false,
     isFailed: Boolean = false,
-    data: User = defaultUser,
+    data: User = emptyUser,
     onSubscriptionPress: (Int) -> Unit = {}
 ){
     Column(
@@ -70,28 +70,36 @@ fun ProfileScreen(
                 Error(onRefresh = onRefreshPress)
             }
             else -> {
-                AsyncImage(
-                    model = data.avatarImgUrl,
-                    contentDescription = context.getString(R.string.avatarImage),
-                    modifier = Modifier.align(Alignment.CenterHorizontally).width(128.dp).height(128.dp).shadow(elevation = 6.dp, clip = false, shape = CircleShape),
-                    contentScale = ContentScale.Crop
-                )
-                Text(
-                    text = data.firstName + " " + data.lastName,
-                    style = MaterialTheme.typography.labelLarge,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 28.sp
-                )
-                Text(
-                    text = data.email,
-                    style = MaterialTheme.typography.labelSmall,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 12.sp
-                )
+                if (data.id != -1){
+                    AsyncImage(
+                        model = data.avatarImgUrl,
+                        contentDescription = context.getString(R.string.avatarImage),
+                        modifier = Modifier.align(Alignment.CenterHorizontally).width(128.dp).height(128.dp).shadow(elevation = 6.dp, clip = false, shape = CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                    Text(
+                        text = data.firstName + " " + data.lastName,
+                        style = MaterialTheme.typography.labelLarge,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 28.sp
+                    )
+                    Text(
+                        text = data.email,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp
+                    )
                 SubscriptionView(context = context, backgroundColor = backgroundColor, tint = tint, data = data.subscription, onSubscriptionPress = {onSubscriptionPress(data.id)})
-
+            } else {
+                Box (modifier = Modifier.fillMaxSize()) {
+                    Text (
+                        text = context.getString(R.string.somethingWentWrong),
+                        modifier = Modifier.align(Alignment.Center),
+                    )
+                }
+            }
             }
         }
 

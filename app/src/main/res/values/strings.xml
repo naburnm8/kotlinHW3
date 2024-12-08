@@ -13,4 +13,7 @@
     <string name="subRenew">Subscription will automatically renew at </string>
     <string name="choosePlan">Choose your plan</string>
     <string name="subInactive">No subscription active</string>
+    <string name="noResultsFound">No results found. Different spelling maybe?</string>
+    <string name="enterAQuery">Enter a search query</string>
+    <string name="somethingWentWrong">Something went wrong. Try again later.</string>
 </resources>

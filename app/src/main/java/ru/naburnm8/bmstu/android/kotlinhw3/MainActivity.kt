@@ -11,9 +11,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieShort
-import ru.naburnm8.bmstu.android.kotlinhw3.network.getFavourites
-import ru.naburnm8.bmstu.android.kotlinhw3.network.getPopularMovies
+import ru.naburnm8.bmstu.android.kotlinhw3.network.*
 import ru.naburnm8.bmstu.android.kotlinhw3.ui.*
 
 
@@ -31,6 +29,7 @@ class MainActivity : ComponentActivity() {
 fun MainActivityScreen() {
     var currentScreen by rememberSaveable {mutableIntStateOf(1)}
     val coroutineScope = rememberCoroutineScope()
+
     var homeData by rememberSaveable {mutableStateOf<List<MovieShort>?>(null)}
     var homeError by rememberSaveable {mutableStateOf(false)}
     var homeLoading by rememberSaveable {mutableStateOf(false)}
@@ -54,6 +53,31 @@ fun MainActivityScreen() {
         )
     }
 
+    var searchData by rememberSaveable {mutableStateOf<List<MovieShort>?>(null)}
+    var searchError by rememberSaveable {mutableStateOf(false)}
+    var searchLoading by rememberSaveable {mutableStateOf(false)}
+    var searchQuery by rememberSaveable {mutableStateOf("")}
+    if (searchData == null && searchQuery != "") {
+        getMoviesByQuery(
+            query = searchQuery,
+            setLoading = {searchLoading = it},
+            setError = {_, status -> run { searchError = status}},
+            coroutineScope = coroutineScope,
+            setData = {searchData = it}
+        )
+    }
+
+    var profileData by rememberSaveable {mutableStateOf<User?>(null)}
+    var profileError by rememberSaveable {mutableStateOf(false)}
+    var profileLoading by rememberSaveable {mutableStateOf(false)}
+    if (profileData == null) {
+        getUser(0,
+            setLoading = {profileLoading = it},
+            setError = {_, status -> run { profileError = status}},
+            coroutineScope = coroutineScope,
+            setData = {profileData = it})
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -65,10 +89,10 @@ fun MainActivityScreen() {
                 FavouritesScreen(modifier = Modifier.weight(1f), isLoading = favouritesLoading, isFailed = favouritesError, onRefreshPress = {favouritesData = null}, dataList = favouritesData ?: emptyList())
             }
             3 -> {
-                SearchScreen(modifier = Modifier.weight(1f))
+                SearchScreen(modifier = Modifier.weight(1f), isLoading = searchLoading, isFailed = searchError, dataList = searchData ?: emptyList(), onRefreshPress = {searchData = null}, onSearchPress = {searchQuery = it; searchData = null})
             }
             4 -> {
-                ProfileScreen(modifier = Modifier.weight(1f))
+                ProfileScreen(modifier = Modifier.weight(1f), isLoading = profileLoading, isFailed = profileError, data = profileData ?: emptyUser)
             }
         }
         LowerScreen(setCurrentScreen = {currentScreen = it})

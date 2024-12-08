@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -19,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,6 +47,7 @@ fun SearchBar(
             textState = it
             onSearch(it)
         },
+
         placeholder = {
             Text(
                 text = context.getString(R.string.search),
@@ -86,10 +91,11 @@ fun SearchScreen(
     onSearchPress: (String) -> Unit = {},
     backgroundColor: Color = colorResource(R.color.background),
     tint: Color = colorResource(R.color.black),
-    dataList: List<MovieShort> = defaultMovieShortList,
+    dataList: List<MovieShort> = emptyList(),
     isLoading: Boolean = false,
     isFailed: Boolean = false,
 ){
+    var firstTime by rememberSaveable {mutableStateOf(true)}
     Column(
         modifier = modifier.fillMaxSize().background(backgroundColor),
     ) {
@@ -112,7 +118,7 @@ fun SearchScreen(
         Row (
             modifier = Modifier.fillMaxWidth().padding(8.dp),
         ) {
-            SearchBar(onSearch = {onSearchPress(it)})
+            SearchBar(onSearch = {onSearchPress(it); firstTime = false})
         }
 
         when {
@@ -123,9 +129,26 @@ fun SearchScreen(
                 Error(onRefresh = onRefreshPress)
             }
             else -> {
-                LazyVerticalGrid(modifier = Modifier.fillMaxSize(), columns = GridCells.Fixed(2), contentPadding = PaddingValues(8.dp)) {
-                    items(dataList){
-                            data -> MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))
+                if (dataList.isNotEmpty()) {
+                    LazyVerticalGrid(
+                        modifier = Modifier.fillMaxSize(),
+                        columns = GridCells.Fixed(2),
+                        contentPadding = PaddingValues(8.dp)
+                    ) {
+                        items(dataList) { data ->
+                            MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))
+                        }
+                    }
+                } else {
+                        Box (modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            text = if (firstTime) context.getString(R.string.enterAQuery) else context.getString(R.string.noResultsFound),
+                            modifier = Modifier.align(Alignment.Center),
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontStyle = FontStyle.Italic,
+                            color = colorResource(R.color.gray),
+                        )
                     }
                 }
             }

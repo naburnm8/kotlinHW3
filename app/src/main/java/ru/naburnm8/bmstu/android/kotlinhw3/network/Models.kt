@@ -69,5 +69,5 @@ public val defaultSubLevel = SubscriptionLevel(id = 1, price = 500, title = "Mov
 
 public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil = LocalDate.parse("2024-12-30"), subscriptionLevel = defaultSubLevel)
 
-public val defaultUser = User(id = 1, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
-
+public val defaultUser = User(id = 0, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
+public val emptyUser = User(id = -1, username = "", firstName = "", lastName = "", phoneNumber = "", email= "", subscription = defaultSubscription, avatarImgUrl = "")
