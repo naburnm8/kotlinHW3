@@ -188,7 +188,7 @@ fun HomeScreen(
                         contentPadding = PaddingValues(8.dp)
                     ) {
                         items(dataList) { data ->
-                            MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp))
+                            MovieItem(data = data, context = context, modifier = Modifier.padding(8.dp), launchFullMovieScreen = launchFullMovieScreen)
                         }
                     }
                 }

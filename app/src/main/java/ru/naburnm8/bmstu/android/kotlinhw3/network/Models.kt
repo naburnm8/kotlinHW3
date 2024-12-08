@@ -1,7 +1,10 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.network
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+@Parcelize
 data class MovieShort(
     val id: Int,
     val title: String,
@@ -9,7 +12,7 @@ data class MovieShort(
     val rating: Double,
     val imgUrl: String,
     val isBookmarked: Boolean = false
-)
+): Parcelable
 
 public val defaultMovieShort = MovieShort(
     id = 1,
@@ -27,11 +30,13 @@ public val defaultMovieShortList = listOf(
     MovieShort(id = 5, title = "Astral 4", year = 2013, rating = 4.9, imgUrl = "https://cdn2.rzn.info/data/image/afisha/event/26667/250x230/26667_673675d0c7404.jpg")
 )
 
+@Parcelize
 data class Tag(
     val id: Int,
     val title: String,
-)
+): Parcelable
 
+@Parcelize
 data class MovieFull(
     val id: Int,
     val movieShort: MovieShort,
@@ -39,22 +44,24 @@ data class MovieFull(
     val isWatchable: Boolean,
     val bigImgUrl: String,
     val tags: List<Tag>,
-)
+): Parcelable
 
+@Parcelize
 data class SubscriptionLevel(
     val id: Int,
     val price: Int,
     val title: String,
-)
+): Parcelable
 
+@Parcelize
 data class Subscription(
     val id: Int,
     val isValid: Boolean,
     val validUntil: LocalDate,
     val subscriptionLevel: SubscriptionLevel,
+): Parcelable
 
-)
-
+@Parcelize
 data class User(
     val id: Int,
     val username: String,
@@ -64,7 +71,8 @@ data class User(
     val email: String,
     val subscription: Subscription,
     val avatarImgUrl: String
-)
+): Parcelable
+
 public val defaultSubLevel = SubscriptionLevel(id = 1, price = 500, title = "Movies Plus")
 
 public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil = LocalDate.parse("2024-12-30"), subscriptionLevel = defaultSubLevel)

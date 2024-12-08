@@ -16,4 +16,5 @@
     <string name="noResultsFound">No results found. Different spelling maybe?</string>
     <string name="enterAQuery">Enter a search query</string>
     <string name="somethingWentWrong">Something went wrong. Try again later.</string>
+    <string name="title_activity_movie_view">MovieViewActivity</string>
 </resources>

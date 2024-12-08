@@ -1,5 +1,7 @@
 package ru.naburnm8.bmstu.android.kotlinhw3
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -26,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainActivityScreen() {
+fun MainActivityScreen(context: Context = LocalContext.current) {
     var currentScreen by rememberSaveable {mutableIntStateOf(1)}
     val coroutineScope = rememberCoroutineScope()
 
@@ -83,19 +85,53 @@ fun MainActivityScreen() {
     ) {
         when (currentScreen) {
             1 -> {
-                HomeScreen(modifier = Modifier.weight(1f), isLoading = homeLoading, isFailed = homeError, dataList = homeData ?: emptyList(), onRefreshPress = {homeData = null})
+                HomeScreen(
+                    modifier = Modifier.weight(1f),
+                    isLoading = homeLoading,
+                    isFailed = homeError,
+                    dataList = homeData ?: emptyList(),
+                    onRefreshPress = {homeData = null},
+                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                )
             }
             2 -> {
-                FavouritesScreen(modifier = Modifier.weight(1f), isLoading = favouritesLoading, isFailed = favouritesError, onRefreshPress = {favouritesData = null}, dataList = favouritesData ?: emptyList())
+                FavouritesScreen(
+                    modifier = Modifier.weight(1f),
+                    isLoading = favouritesLoading,
+                    isFailed = favouritesError,
+                    onRefreshPress = {favouritesData = null},
+                    dataList = favouritesData ?: emptyList(),
+                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                )
             }
             3 -> {
-                SearchScreen(modifier = Modifier.weight(1f), isLoading = searchLoading, isFailed = searchError, dataList = searchData ?: emptyList(), onRefreshPress = {searchData = null}, onSearchPress = {searchQuery = it; searchData = null})
+                SearchScreen(
+                    modifier = Modifier.weight(1f),
+                    isLoading = searchLoading,
+                    isFailed = searchError,
+                    dataList = searchData ?: emptyList(),
+                    onRefreshPress = {searchData = null},
+                    onSearchPress = {searchQuery = it; searchData = null},
+                    launchFullMovieScreen = {startMovieView(it, context = context)}
+                )
             }
             4 -> {
-                ProfileScreen(modifier = Modifier.weight(1f), isLoading = profileLoading, isFailed = profileError, data = profileData ?: emptyUser)
+                ProfileScreen(
+                    modifier = Modifier.weight(1f),
+                    isLoading = profileLoading,
+                    isFailed = profileError,
+                    data = profileData ?: emptyUser
+                )
             }
         }
         LowerScreen(setCurrentScreen = {currentScreen = it})
     }
+}
+
+fun startMovieView(id: Int, context: Context){
+    val intent = Intent(context, MovieViewActivity::class.java)
+    intent.putExtra("movie_id",id)
+    println("Hi i was called")
+    context.startActivity(intent)
 }
 
