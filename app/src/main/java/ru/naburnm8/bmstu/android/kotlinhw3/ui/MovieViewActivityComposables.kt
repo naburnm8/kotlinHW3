@@ -2,9 +2,14 @@ package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -96,7 +101,7 @@ fun MovieView(
             Error(onRefresh = onRefreshPress)
         }
         else -> {
-            Column(modifier = modifier.fillMaxSize()) {
+            Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
                 AsyncImage(
                     model = data.bigImgUrl,
                     contentDescription = data.movieShort.title,

@@ -1,9 +1,7 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -45,7 +43,7 @@ fun ProfileScreen(
     onSubscriptionPress: (Int) -> Unit = {}
 ){
     Column(
-        modifier = modifier.fillMaxSize().background(backgroundColor),
+        modifier = modifier.fillMaxSize().background(backgroundColor).verticalScroll(rememberScrollState()),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(8.dp),
