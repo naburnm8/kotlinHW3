@@ -20,9 +20,9 @@ val popularMoviesList = listOf(
 )
 
 val tagsList = listOf(
-    Tag(id = 1, title = "Scary!"),
-    Tag(id = 2, title = "NSFW"),
-    Tag(id = 3, title = "New!")
+    Tag(id = 1, title = "Scary!", color = 0xFFFAB75A),
+    Tag(id = 2, title = "NSFW", color = 0xFFFF6F6F),
+    Tag(id = 3, title = "New!", color = 0xFF85e37b)
 )
 
 val moviesList = listOf(

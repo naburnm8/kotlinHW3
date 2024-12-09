@@ -15,9 +15,9 @@ class MovieViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val movieId = intent.getIntExtra("movie_id", -1)
-        val userHasSubscription = intent.getBooleanExtra("user_has_subscription", false)
+        val currentUserId = 0
         setContent {
-            MovieViewScreen(movieId = movieId, userHasSubscription = userHasSubscription)
+            MovieViewScreen(movieId = movieId, userId = currentUserId)
         }
     }
     override fun onBackPressed() {
@@ -30,11 +30,12 @@ class MovieViewActivity : ComponentActivity() {
 fun MovieViewScreen(
     context: Context = LocalContext.current,
     movieId: Int,
-    userHasSubscription: Boolean
+    userId: Int
 ){
     val coroutineScope = rememberCoroutineScope()
 
     var movieData by rememberSaveable{mutableStateOf<MovieFull?>(null)}
+    var userData by rememberSaveable{mutableStateOf<User?>(null)}
     var isLoading by rememberSaveable{mutableStateOf(false)}
     var hasError by rememberSaveable{mutableStateOf(false)}
 
@@ -48,13 +49,23 @@ fun MovieViewScreen(
         )
     }
 
+    if (userData == null) {
+        getUser(
+            id = userId,
+            setLoading = {isLoading = it },
+            setError = {_, status -> run { hasError = status } },
+            coroutineScope = coroutineScope,
+            setData = {userData = it}
+        )
+    }
+
     MovieView(
         context = context,
         onRefreshPress = {movieData = null},
         isLoading = isLoading,
         isFailed = hasError,
         data = movieData ?: emptyMovieFull,
-        userHasSubscription = userHasSubscription,
+        userData = userData ?: emptyUser,
     )
 
 

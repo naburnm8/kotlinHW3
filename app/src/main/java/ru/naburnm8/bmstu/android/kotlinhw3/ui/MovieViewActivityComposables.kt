@@ -1,7 +1,9 @@
 package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.AbsoluteCutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -23,9 +25,48 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColor
+import androidx.core.graphics.toColorInt
 import coil3.compose.AsyncImage
 import ru.naburnm8.bmstu.android.kotlinhw3.R
 import ru.naburnm8.bmstu.android.kotlinhw3.network.*
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun TagsList(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = colorResource(R.color.background),
+    tint: Color = colorResource(R.color.black),
+    dataList: List<Tag> = defaultTags
+) {
+    Row(modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+        for (tag in dataList) {
+            val tagColor = Color(tag.color)
+            Spacer(Modifier.width(4.dp))
+            Box(
+                modifier = Modifier
+                    .shadow(elevation = 10.dp, shape = RoundedCornerShape(8.dp))
+                    .background(tagColor)
+                    .padding(6.dp)
+                    //.background(tagColor, shape = RoundedCornerShape(16.dp))
+
+
+            ) {
+                Text(
+                    text = tag.title,
+                    color = tint,
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                )
+            }
+            Spacer(Modifier.width(4.dp))
+
+        }
+        }
+    }
 
 
 @Preview(showBackground = true)
@@ -36,14 +77,17 @@ fun MovieView(
     onRefreshPress: () -> Unit = {},
     onBookmarkPress: () -> Unit = {},
     onWatchPress: () -> Unit = {},
+    onChoosePlanPress: () -> Unit = {},
     backgroundColor: Color = colorResource(R.color.background),
     tint: Color = colorResource(R.color.black),
     isLoading: Boolean = false,
     isFailed: Boolean = false,
     data: MovieFull = defaultMovieFull,
-    userHasSubscription: Boolean = true
+    userData: User = defaultUser,
 ){
     var isBookmarked by rememberSaveable { mutableStateOf(data.movieShort.isBookmarked) }
+    isBookmarked = data.movieShort.isBookmarked
+    val userHasSubscription = userData.subscription.isValid
     when{
         (isLoading) -> {
             Loading()
@@ -95,6 +139,8 @@ fun MovieView(
                         fontSize = 18.sp
                     )
                 }
+                Spacer(Modifier.height(8.dp))
+                TagsList(dataList = data.tags)
                 Row(modifier = Modifier.fillMaxWidth().padding(2.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center,) {
                     Button(
                         onClick = {onBookmarkPress(); isBookmarked = !isBookmarked},
@@ -113,7 +159,19 @@ fun MovieView(
                         }
                     }
                     Button(
-                        onClick = {onWatchPress()},
+                        onClick = {
+                            when {
+                                (!data.isWatchable) -> {
+                                    //pass
+                                }
+                                (!userHasSubscription) -> {
+                                    onChoosePlanPress()
+                                }
+                                else -> {
+                                    onWatchPress()
+                                }
+                            }
+                        },
                         colors = if (data.isWatchable && userHasSubscription) ButtonDefaults.buttonColors(containerColor = colorResource(R.color.green)) else ButtonDefaults.buttonColors(containerColor = colorResource(R.color.gray)),
                         modifier = Modifier.padding(8.dp),
                         elevation = ButtonDefaults.elevatedButtonElevation(4.dp, 2.dp),
@@ -142,7 +200,8 @@ fun MovieView(
 
                                 (!data.isWatchable) -> {
                                     Text(
-                                        text = context.getString(R.string.contentIsUnavailable)
+                                        text = context.getString(R.string.contentIsUnavailable),
+                                        fontSize = 10.sp
                                     )
                                     Icon(
                                         painter = painterResource(R.drawable.play_disabled),

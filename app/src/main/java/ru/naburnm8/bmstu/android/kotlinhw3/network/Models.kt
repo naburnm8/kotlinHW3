@@ -19,7 +19,8 @@ public val defaultMovieShort = MovieShort(
     title = "Astral",
     year = 2013,
     rating = 9.0,
-    imgUrl = "https://cdn2.rzn.info/data/image/afisha/event/26667/250x230/26667_673675d0c7404.jpg"
+    imgUrl = "https://cdn2.rzn.info/data/image/afisha/event/26667/250x230/26667_673675d0c7404.jpg",
+    isBookmarked = true
 )
 
 public val defaultMovieShortList = listOf(
@@ -34,6 +35,7 @@ public val defaultMovieShortList = listOf(
 data class Tag(
     val id: Int,
     val title: String,
+    val color: Long
 ): Parcelable
 
 @Parcelize
@@ -79,5 +81,6 @@ public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil
 
 public val defaultUser = User(id = 0, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
 public val emptyUser = User(id = -1, username = "", firstName = "", lastName = "", phoneNumber = "", email= "", subscription = defaultSubscription, avatarImgUrl = "")
-public val defaultMovieFull = MovieFull(id = 1, movieShort = defaultMovieShort, desc = mockupDescription, isWatchable = true, bigImgUrl = "https://variety.com/wp-content/uploads/2018/11/astral.jpg?w=1000&h=500&crop=1", tags = tagsList)
+public val defaultMovieFull = MovieFull(id = 1, movieShort = defaultMovieShort, desc = mockupDescription, isWatchable = false, bigImgUrl = "https://variety.com/wp-content/uploads/2018/11/astral.jpg?w=1000&h=500&crop=1", tags = tagsList)
 public val emptyMovieFull = MovieFull(id = -1, movieShort = defaultMovieShort, desc = "", isWatchable = false, bigImgUrl = "", tags = emptyList())
+public val defaultTags = tagsList
