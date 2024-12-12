@@ -15,7 +15,7 @@ class MovieViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val movieId = intent.getIntExtra("movie_id", -1)
-        val currentUserId = 0
+        val currentUserId = 1
         setContent {
             MovieViewScreen(movieId = movieId, userId = currentUserId)
         }
@@ -45,7 +45,8 @@ fun MovieViewScreen(
             setLoading = {isLoading = it },
             setError = {_, status -> run { hasError = status } },
             coroutineScope = coroutineScope,
-            setData = {movieData = it}
+            setData = {movieData = it},
+            context = context
         )
     }
 
@@ -55,7 +56,8 @@ fun MovieViewScreen(
             setLoading = {isLoading = it },
             setError = {_, status -> run { hasError = status } },
             coroutineScope = coroutineScope,
-            setData = {userData = it}
+            setData = {userData = it},
+            context = context
         )
     }
 

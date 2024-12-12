@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val currentUserId = 0
+        val currentUserId = 1
         setContent {
             MainActivityScreen(currentUserId = currentUserId)
         }
@@ -43,7 +43,9 @@ fun MainActivityScreen(context: Context = LocalContext.current, currentUserId: I
             setLoading = {homeLoading = it},
             setError = {_, status -> run { homeError = status }},
             coroutineScope = coroutineScope,
-            setData = {homeData = it})
+            setData = {homeData = it},
+            context = context
+        )
     }
 
     var favouritesData by rememberSaveable {mutableStateOf<List<MovieShort>?>(null)}
@@ -55,6 +57,7 @@ fun MainActivityScreen(context: Context = LocalContext.current, currentUserId: I
             setError = {_, status -> run { favouritesError = status} },
             setData = {favouritesData = it},
             coroutineScope = coroutineScope,
+            context = context
         )
     }
 
@@ -68,7 +71,8 @@ fun MainActivityScreen(context: Context = LocalContext.current, currentUserId: I
             setLoading = {searchLoading = it},
             setError = {_, status -> run { searchError = status}},
             coroutineScope = coroutineScope,
-            setData = {searchData = it}
+            setData = {searchData = it},
+            context = context
         )
     }
 
@@ -80,7 +84,9 @@ fun MainActivityScreen(context: Context = LocalContext.current, currentUserId: I
             setLoading = {profileLoading = it},
             setError = {_, status -> run { profileError = status}},
             coroutineScope = coroutineScope,
-            setData = {profileData = it})
+            setData = {profileData = it},
+            context = context
+        )
     }
 
     Column(

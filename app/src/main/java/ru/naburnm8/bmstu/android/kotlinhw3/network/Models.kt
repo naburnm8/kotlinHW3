@@ -42,6 +42,12 @@ data class Tag(
     val color: Long
 ): Parcelable
 
+val tagsList = listOf(
+    Tag(id = 1, title = "Scary!", color = 0xFFFAB75A),
+    Tag(id = 2, title = "NSFW", color = 0xFFFF6F6F),
+    Tag(id = 3, title = "New!", color = 0xFF85e37b)
+)
+
 @Serializable
 @Parcelize
 data class MovieFull(
@@ -87,6 +93,11 @@ data class User(
 public val defaultSubLevel = SubscriptionLevel(id = 1, price = 500, title = "Movies Plus")
 
 public val defaultSubscription = Subscription(id = 1, isValid = true, validUntil = LocalDate.parse("2024-12-30"), subscriptionLevel = defaultSubLevel)
+
+const val mockupDescription = "A young journalist, Ellie Marshall, investigates decades of disappearances tied to the eerie Blackwood Orphanage." +
+        " Locals whisper of a malevolent entity that feeds on fear," +
+        " erasing its victims from existence. As Ellie unravels the orphanage’s dark secrets," +
+        " she must confront the lurking presence before becoming its next forgotten soul. "
 
 public val defaultUser = User(id = 0, username = "naburnm8", firstName = "Artem", lastName = "Lint", phoneNumber = "+79996783412", email= "blabla@bk.ru", subscription = defaultSubscription, avatarImgUrl = "https://static.wikia.nocookie.net/c9dde1fd-8d96-4288-97ea-6dca45a39891/scale-to-width/755")
 public val emptyUser = User(id = -1, username = "", firstName = "", lastName = "", phoneNumber = "", email= "", subscription = defaultSubscription, avatarImgUrl = "")
