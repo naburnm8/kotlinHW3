@@ -32,7 +32,6 @@ import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieShortList
 
 
 @Preview(showBackground = true)
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,

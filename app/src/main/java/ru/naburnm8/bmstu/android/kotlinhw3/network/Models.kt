@@ -2,8 +2,11 @@ package ru.naburnm8.bmstu.android.kotlinhw3.network
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
+import ru.naburnm8.bmstu.android.kotlinhw3.network.serialization.LocalDateSerializer
 import java.time.LocalDate
 
+@Serializable
 @Parcelize
 data class MovieShort(
     val id: Int,
@@ -31,6 +34,7 @@ public val defaultMovieShortList = listOf(
     MovieShort(id = 5, title = "Astral 4", year = 2013, rating = 4.9, imgUrl = "https://cdn2.rzn.info/data/image/afisha/event/26667/250x230/26667_673675d0c7404.jpg")
 )
 
+@Serializable
 @Parcelize
 data class Tag(
     val id: Int,
@@ -38,6 +42,7 @@ data class Tag(
     val color: Long
 ): Parcelable
 
+@Serializable
 @Parcelize
 data class MovieFull(
     val id: Int,
@@ -48,6 +53,7 @@ data class MovieFull(
     val tags: List<Tag>,
 ): Parcelable
 
+@Serializable
 @Parcelize
 data class SubscriptionLevel(
     val id: Int,
@@ -55,14 +61,17 @@ data class SubscriptionLevel(
     val title: String,
 ): Parcelable
 
+@Serializable
 @Parcelize
 data class Subscription(
     val id: Int,
     val isValid: Boolean,
+    @Serializable(with = LocalDateSerializer::class)
     val validUntil: LocalDate,
     val subscriptionLevel: SubscriptionLevel,
 ): Parcelable
 
+@Serializable
 @Parcelize
 data class User(
     val id: Int,
