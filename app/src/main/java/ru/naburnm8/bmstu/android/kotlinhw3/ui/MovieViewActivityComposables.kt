@@ -2,12 +2,10 @@ package ru.naburnm8.bmstu.android.kotlinhw3.ui
 
 import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
+
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -30,8 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColor
-import androidx.core.graphics.toColorInt
+
 import coil3.compose.AsyncImage
 import ru.naburnm8.bmstu.android.kotlinhw3.R
 import ru.naburnm8.bmstu.android.kotlinhw3.network.*

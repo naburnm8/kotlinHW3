@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.naburnm8.bmstu.android.kotlinhw3.R
 import ru.naburnm8.bmstu.android.kotlinhw3.network.MovieShort
-import ru.naburnm8.bmstu.android.kotlinhw3.network.defaultMovieShortList
 
 
 @Preview(showBackground = true)

@@ -2,20 +2,10 @@ package ru.naburnm8.bmstu.android.kotlinhw3.network
 
 
 import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-
-//used in default models for previews
-
-
-
-
-
-
-
 
 
 fun getPopularMovies(
